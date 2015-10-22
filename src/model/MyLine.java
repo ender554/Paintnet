@@ -14,7 +14,7 @@ public class MyLine extends PaintObject{
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.setColor(Color.BLACK);
+		g.setColor(getColor());
 		g.draw(new Line2D.Double(locationStart.x, locationStart.y, locationEnd.x, locationEnd.y));
 		
 	}

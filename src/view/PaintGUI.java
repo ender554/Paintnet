@@ -5,11 +5,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import model.MyLine;
+import model.MyOval;
+import model.PaintObject;
 
 public class PaintGUI extends JFrame{
 	
@@ -29,6 +33,16 @@ public class PaintGUI extends JFrame{
 		canvas.setLocation(0, 0);
 		canvas.setBackground(Color.GREEN);
 		this.add(canvas);
+		
+		List<PaintObject> shapes = new ArrayList<PaintObject>();
+		MyLine line = new MyLine(new Point2D.Double(24,42), new Point2D.Double(500, 500), Color.WHITE);
+		shapes.add(line);
+		MyOval oval = new MyOval(new Point2D.Double(300,300), new Point2D.Double(200,200), Color.BLUE);
+		shapes.add(oval);
+		
+		canvas.drawShapes(shapes);
+		
+		
 		
 		
 	}
