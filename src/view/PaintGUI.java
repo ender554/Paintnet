@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import model.MyLine;
 import model.MyOval;
+import model.MyRectangle;
 import model.PaintObject;
 
 public class PaintGUI extends JFrame{
@@ -31,7 +32,7 @@ public class PaintGUI extends JFrame{
 		this.setLayout(null);
 		canvas.setSize(680, 400);
 		canvas.setLocation(0, 0);
-		canvas.setBackground(Color.GREEN);
+		canvas.setBackground(Color.BLACK);
 		this.add(canvas);
 		
 		List<PaintObject> shapes = new ArrayList<PaintObject>();
@@ -39,6 +40,8 @@ public class PaintGUI extends JFrame{
 		shapes.add(line);
 		MyOval oval = new MyOval(new Point2D.Double(300,300), new Point2D.Double(200,200), Color.BLUE);
 		shapes.add(oval);
+		MyRectangle rectangle = new MyRectangle(new Point2D.Double(150,150), new Point2D.Double(25, 25), Color.YELLOW);
+		shapes.add(rectangle);
 		
 		canvas.drawShapes(shapes);
 		
