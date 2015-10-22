@@ -11,8 +11,8 @@ public class MyOval extends PaintObject {
 
 	public MyOval(Point2D.Double locationStart, Point2D.Double locationEnd, Color color) {
 		super(locationStart, locationEnd, color);
-		width = locationStart.x - locationEnd.x;
-		height = locationStart.y - locationEnd.y;
+		width = Math.abs(locationEnd.x - locationStart.x);
+		height = Math.abs(locationEnd.y - locationStart.y);
 	}
 
 	@Override
