@@ -2,17 +2,24 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Point2D;
 
 public abstract class PaintObject {
 	protected Point2D.Double locationStart, locationEnd;
 	private Color color;
+	protected Image myImage;
 	
 	public PaintObject(Point2D.Double locationStart, Point2D.Double locationEnd, Color color){
 		this.locationStart = locationStart;
 		this.locationEnd = locationEnd;
 		this.color = new Color(color.getRed(), color.getGreen(), color.getBlue());
 		
+	}
+	public PaintObject(Point2D.Double locationStart, Point2D.Double locationEnd, Image myImage){
+		this.locationStart = locationStart;
+		this.locationEnd = locationEnd;
+		this.myImage = myImage;
 	}
 	
 

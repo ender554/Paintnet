@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class PaintGUI extends JFrame {
 	public PaintGUI() {
 		MyLine theLine = new MyLine(new Point2D.Double(50, 50), new Point2D.Double(150, 150), Color.BLACK);
 		PaintPanel canvas = new PaintPanel(theLine);
+		Image myimage = new javax.swing.ImageIcon("doge.jpeg").getImage();
 
 		this.setSize(700, 700);
 		this.setLocation(500, 200);
@@ -45,7 +47,10 @@ public class PaintGUI extends JFrame {
 		shapes.add(rectangle);
 		MyLine line2 = new MyLine(new Point2D.Double(204, 4), new Point2D.Double(500, 500), Color.WHITE);
 		shapes.add(line2);
+		MyImage image = new MyImage(new Point2D.Double(100, 100), new Point2D.Double(10, 10), myimage);
+		shapes.add(image);
 		canvas.drawShapes(shapes);
+		
 
 	}
 
