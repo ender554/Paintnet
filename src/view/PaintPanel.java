@@ -33,8 +33,7 @@ public class PaintPanel extends JPanel{
 	private void drawShapesOnMe(Graphics2D g2, List<PaintObject> shapes){
 		for(PaintObject shape : shapes)
 			shape.draw(g2);
-		
-		
+
 	}
 	
 }
