@@ -1,11 +1,11 @@
-package View;
+package view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import Model.PaintObject;
+import model.PaintObject;
 
 public class PaintPanel extends JPanel{
 

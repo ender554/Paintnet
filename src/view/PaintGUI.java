@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Model.MyLine;
+import model.MyLine;
 
 public class PaintGUI extends JFrame{
 	
