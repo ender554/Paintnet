@@ -8,6 +8,9 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -20,13 +23,16 @@ public class PaintPanel extends JPanel {
 	@SuppressWarnings("unused")
 	private PaintObject shape;
 	private List<PaintObject> shapes;
+	private boolean draw = false;
+	private PaintObject currentDrawingObject;
 
 	/*-----------------
 	 * Constructor
 	 *----------------*/
 	public PaintPanel(PaintObject shape) {
 		this.shape = shape;
-
+		this.addMouseMotionListener(new MouseActionListener());
+		this.addMouseListener(new MouseActionListener());
 	}
 
 	/**
@@ -68,6 +74,57 @@ public class PaintPanel extends JPanel {
 		for (PaintObject shape : shapes)
 			shape.draw(g2);
 
+	}
+	
+	private class MouseActionListener implements MouseMotionListener, MouseListener {
+
+		@Override
+		public void mouseDragged(MouseEvent arg0) {
+			
+			
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent arg0) {
+			if(draw) {
+				System.out.println(arg0.getX() + " " + arg0.getY());
+				
+			}
+			
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			draw = !draw;
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	
+		
 	}
 
 }

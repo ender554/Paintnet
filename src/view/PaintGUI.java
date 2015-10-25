@@ -7,6 +7,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.io.File;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 import model.MyImage;
 import model.MyLine;
@@ -39,6 +41,7 @@ public class PaintGUI extends JFrame {
 	 *----------------*/
 	public PaintGUI() {
 		MyLine theLine = new MyLine(new Point2D.Double(50, 50), new Point2D.Double(150, 150), Color.BLACK);
+		JScrollPane pane = new JScrollPane();
 		PaintPanel canvas = new PaintPanel(theLine);
 
 		// read in image try catch
@@ -49,14 +52,19 @@ public class PaintGUI extends JFrame {
 		}
 
 		// gui set up
-		this.setSize(700, 700);
-		this.setLocation(500, 200);
+		this.setSize(1024, 768);
+		this.setLocation(300, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
-		canvas.setSize(680, 400);
+		
+		pane.setSize((int)(getWidth() * .985), (int) (getHeight() * .75));
+		
+		
+		canvas.setPreferredSize(new Dimension(2000,2000));
 		canvas.setLocation(0, 0);
 		canvas.setBackground(Color.BLACK);
-		this.add(canvas);
+		pane.setViewportView(canvas);
+		this.add(pane);
 
 		// add items to PaintObject list
 		List<PaintObject> shapes = new ArrayList<PaintObject>();
