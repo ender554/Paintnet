@@ -15,8 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
-
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
 import model.MyImage;
@@ -29,6 +32,11 @@ import model.PaintObject;
 public class PaintGUI extends JFrame {
 
 	private Image image;
+	private JRadioButton ovalButton;
+	private JRadioButton lineButton;
+	private JRadioButton rectangleButton;
+	private JRadioButton imageButton;
+	private ButtonGroup bg;
 
 	// main method creates new PaintGUI and sets visible
 	public static void main(String[] args) {
@@ -65,23 +73,28 @@ public class PaintGUI extends JFrame {
 		pane.setViewportView(canvas);
 		this.add(pane);
 		
-		/*
-		// add items to PaintObject list
-		List<PaintObject> shapes = new ArrayList<PaintObject>();
-		MyLine line = new MyLine(new Point2D.Double(24, 42), new Point2D.Double(500, 500), Color.WHITE);
-		shapes.add(line);
-		MyOval oval = new MyOval(new Point2D.Double(300, 300), new Point2D.Double(200, 200), Color.BLUE);
-		shapes.add(oval);
-		MyRectangle rectangle = new MyRectangle(new Point2D.Double(150, 150), new Point2D.Double(25, 25), Color.YELLOW);
-		shapes.add(rectangle);
-		MyLine line2 = new MyLine(new Point2D.Double(204, 4), new Point2D.Double(500, 500), Color.WHITE);
-		shapes.add(line2);
-		MyImage drawing = new MyImage(new Point2D.Double(100, 100), new Point2D.Double(10, 10), image);
-		shapes.add(drawing);
+		ovalButton = new JRadioButton("Oval");
+		ovalButton.setSelected(true);
+		lineButton = new JRadioButton("Line");
+		rectangleButton = new JRadioButton("Rectangle");
+		imageButton = new JRadioButton("Image");
+		
+		bg = new ButtonGroup();
+		bg.add(ovalButton);
+		bg.add(lineButton);
+		bg.add(rectangleButton);
+		bg.add(imageButton);
+		
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(ovalButton);
+		buttonPanel.add(lineButton);
+		buttonPanel.add(rectangleButton);
+		buttonPanel.add(imageButton);
+		buttonPanel.setLocation(getWidth() / 2, (int) (getHeight() * .78));
+		buttonPanel.setSize(400, 40);
+		this.add(buttonPanel);
 
-		// draw images on canvas
-		canvas.drawShapes(shapes);
-		*/
 	}
 
 }
