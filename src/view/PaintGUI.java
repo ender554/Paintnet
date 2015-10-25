@@ -49,7 +49,7 @@ public class PaintGUI extends JFrame {
 	 *----------------*/
 	public PaintGUI() {
 		JScrollPane pane = new JScrollPane();
-		PaintPanel canvas = new PaintPanel();
+		PaintPanel canvas = new PaintPanel(this);
 
 		// read in image try catch
 		try {
@@ -96,5 +96,22 @@ public class PaintGUI extends JFrame {
 		this.add(buttonPanel);
 
 	}
+	
+	public Class getSelectedShape() {
+		Class type;
+		type = Object.class;
+		
+		if(ovalButton.isSelected())
+			type = MyOval.class;
+		else if(lineButton.isSelected())
+			type = MyLine.class;
+		else if(rectangleButton.isSelected())
+			type = MyRectangle.class;
+		else if(imageButton.isSelected())
+			type = MyImage.class;
+		
+		return type;
+	}
+	
 
 }
