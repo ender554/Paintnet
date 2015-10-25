@@ -107,6 +107,8 @@ public class PaintPanel extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			if(draw == false) {
 				currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
+			} else {
+				shapes.add(currentDrawingObject);
 			}
 			
 			draw = !draw;
