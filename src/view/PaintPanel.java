@@ -6,15 +6,18 @@
 
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import javax.swing.JPanel;
 
+import model.MyLine;
 import model.PaintObject;
 
 @SuppressWarnings("serial")
@@ -25,6 +28,7 @@ public class PaintPanel extends JPanel {
 	private List<PaintObject> shapes;
 	private boolean draw = false;
 	private PaintObject currentDrawingObject;
+	private Point2D.Double currentDrawingStartPoint;
 
 	/*-----------------
 	 * Constructor
@@ -33,6 +37,7 @@ public class PaintPanel extends JPanel {
 		this.shape = shape;
 		this.addMouseMotionListener(new MouseActionListener());
 		this.addMouseListener(new MouseActionListener());
+		this.currentDrawingObject = null;
 	}
 
 	/**
@@ -73,6 +78,10 @@ public class PaintPanel extends JPanel {
 	private void drawShapesOnMe(Graphics2D g2, List<PaintObject> shapes) {
 		for (PaintObject shape : shapes)
 			shape.draw(g2);
+		
+		if(currentDrawingObject != null) {
+			currentDrawingObject.draw(g2);
+		}
 
 	}
 	
@@ -85,16 +94,21 @@ public class PaintPanel extends JPanel {
 		}
 
 		@Override
-		public void mouseMoved(MouseEvent arg0) {
+		public void mouseMoved(MouseEvent e) {
 			if(draw) {
-				System.out.println(arg0.getX() + " " + arg0.getY());
-				
+				System.out.println(e.getX() + " " + e.getY());
+				currentDrawingObject = new MyLine(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
+				repaint();
 			}
 			
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			if(draw == false) {
+				currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
+			}
+			
 			draw = !draw;
 			
 		}
