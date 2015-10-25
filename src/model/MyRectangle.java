@@ -11,8 +11,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
-public class MyRectangle extends PaintObject {
+public class MyRectangle extends PaintObject  implements Serializable {
 	private double height;
 	private double width;
 

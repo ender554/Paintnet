@@ -11,8 +11,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
-public abstract class PaintObject {
+public abstract class PaintObject implements Serializable {
 	protected Point2D.Double locationStart, locationEnd;
 	private Color color;
 	protected Image myImage;
