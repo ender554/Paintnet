@@ -27,8 +27,10 @@ public class PaintPanel extends JPanel {
 	private PaintObject shape;
 	private List<PaintObject> shapes;
 	private boolean draw = false;
+	private boolean drag = false;
 	private PaintObject currentDrawingObject;
 	private Point2D.Double currentDrawingStartPoint;
+	
 
 	/*-----------------
 	 * Constructor
@@ -88,9 +90,14 @@ public class PaintPanel extends JPanel {
 	private class MouseActionListener implements MouseMotionListener, MouseListener {
 
 		@Override
-		public void mouseDragged(MouseEvent arg0) {
-			
-			
+		public void mouseDragged(MouseEvent e) {
+			drag = true;
+			if(draw) {
+				System.out.println(e.getX() + " " + e.getY());
+				currentDrawingObject = new MyLine(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
+				repaint();
+			}
+		
 		}
 
 		@Override
@@ -105,13 +112,15 @@ public class PaintPanel extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if(draw == false) {
+			/*if(draw == false) {
 				currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
-			} else {
-				shapes.add(currentDrawingObject);
-			}
 			
-			draw = !draw;
+				shapes.add(currentDrawingObject);
+			}*/
+			
+			
+			
+			//draw = !draw;
 			
 		}
 
@@ -129,14 +138,24 @@ public class PaintPanel extends JPanel {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
+			System.out.println("pressed");
+			draw = !draw;
+			currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
+			
+			if(!draw) {
+				shapes.add(currentDrawingObject);
+			}
 			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+			System.out.println("released");
+			if(drag) {
+				draw = false;
+				shapes.add(currentDrawingObject);
+			}
+			drag = false;
 		}
 
 	
