@@ -40,9 +40,8 @@ public class PaintGUI extends JFrame {
 	 * Constructor
 	 *----------------*/
 	public PaintGUI() {
-		MyLine theLine = new MyLine(new Point2D.Double(50, 50), new Point2D.Double(150, 150), Color.BLACK);
 		JScrollPane pane = new JScrollPane();
-		PaintPanel canvas = new PaintPanel(theLine);
+		PaintPanel canvas = new PaintPanel();
 
 		// read in image try catch
 		try {
@@ -65,7 +64,8 @@ public class PaintGUI extends JFrame {
 		canvas.setBackground(Color.BLACK);
 		pane.setViewportView(canvas);
 		this.add(pane);
-
+		
+		/*
 		// add items to PaintObject list
 		List<PaintObject> shapes = new ArrayList<PaintObject>();
 		MyLine line = new MyLine(new Point2D.Double(24, 42), new Point2D.Double(500, 500), Color.WHITE);
@@ -81,7 +81,7 @@ public class PaintGUI extends JFrame {
 
 		// draw images on canvas
 		canvas.drawShapes(shapes);
-
+		*/
 	}
 
 }

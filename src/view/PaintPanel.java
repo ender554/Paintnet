@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -35,8 +36,8 @@ public class PaintPanel extends JPanel {
 	/*-----------------
 	 * Constructor
 	 *----------------*/
-	public PaintPanel(PaintObject shape) {
-		this.shape = shape;
+	public PaintPanel() {
+		this.shapes = new ArrayList<PaintObject>();
 		this.addMouseMotionListener(new MouseActionListener());
 		this.addMouseListener(new MouseActionListener());
 		this.currentDrawingObject = null;
@@ -63,8 +64,9 @@ public class PaintPanel extends JPanel {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
+		Graphics2D g2 = (Graphics2D) g;	
 		drawShapesOnMe(g2, shapes);
+		
 
 	}
 
