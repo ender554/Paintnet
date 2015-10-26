@@ -6,9 +6,13 @@
 
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +21,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -62,20 +67,24 @@ public class PaintGUI extends JFrame {
 		this.setSize(1024, 768);
 		this.setLocation(300, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(null);
+		this.setTitle("Netpaint");
+		//a = row number, b = column number, c = horizontal gap, d = vertical gap.
+		this.setLayout(new BorderLayout());
+
 		
-		pane.setSize((int)(getWidth() * .985), (int) (getHeight() * .75));
+		//pane.setSize((int)(getWidth() * .985), (int) (getHeight() * .75));
 		
 		
 		canvas.setPreferredSize(new Dimension(2000,2000));
 		canvas.setLocation(0, 0);
-		canvas.setBackground(Color.BLACK);
+		canvas.setBackground(Color.WHITE);
 		pane.setViewportView(canvas);
-		this.add(pane);
+		//pane.setPreferredSize(new Dimension((int)(getWidth() * .985), (int) (getHeight() * .75)));
+		this.add(pane, BorderLayout.CENTER);
 		
 		ovalButton = new JRadioButton("Oval");
-		ovalButton.setSelected(true);
 		lineButton = new JRadioButton("Line");
+		lineButton.setSelected(true);
 		rectangleButton = new JRadioButton("Rectangle");
 		imageButton = new JRadioButton("Image");
 		
@@ -86,14 +95,25 @@ public class PaintGUI extends JFrame {
 		bg.add(imageButton);
 		
 		
+		JButton colorButton = new JButton("Color");
+		colorButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+			
+		});
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(ovalButton);
 		buttonPanel.add(lineButton);
 		buttonPanel.add(rectangleButton);
+		buttonPanel.add(ovalButton);				
 		buttonPanel.add(imageButton);
+		buttonPanel.add(colorButton);
 		buttonPanel.setLocation(getWidth() / 2, (int) (getHeight() * .78));
 		buttonPanel.setSize(400, 40);
-		this.add(buttonPanel);
+		this.add(buttonPanel, BorderLayout.NORTH);
 
 	}
 	

@@ -22,7 +22,6 @@ public class MyOval extends PaintObject implements Serializable  {
 	public MyOval(Point2D.Double locationStart, Point2D.Double locationEnd, Color color) {
 		super(locationStart, locationEnd, color);
 
-		
 	}
 	
 	/**
