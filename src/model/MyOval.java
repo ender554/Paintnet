@@ -14,18 +14,17 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 public class MyOval extends PaintObject implements Serializable  {
-	private double height;
-	private double width;
+
 
 	/*-----------------
 	 * Constructor
 	 *----------------*/
 	public MyOval(Point2D.Double locationStart, Point2D.Double locationEnd, Color color) {
 		super(locationStart, locationEnd, color);
-		width = Math.abs(locationEnd.x - locationStart.x);
-		height = Math.abs(locationEnd.y - locationStart.y);
-	}
 
+		
+	}
+	
 	/**
 	 * Method: draw
 	 * 
@@ -35,7 +34,10 @@ public class MyOval extends PaintObject implements Serializable  {
 	 * 
 	 */
 	public void draw(Graphics2D g2) {
-		Ellipse2D.Double oval = new Ellipse2D.Double(locationStart.x, locationEnd.y, width, height);
+		
+		Ellipse2D.Double oval = new Ellipse2D.Double();
+		oval.setFrameFromDiagonal(locationStart, locationEnd);
+		
 		g2.setPaint(getColor());
 		g2.fill(oval);
 

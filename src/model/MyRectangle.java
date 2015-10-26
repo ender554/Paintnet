@@ -14,17 +14,12 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 public class MyRectangle extends PaintObject  implements Serializable {
-	private double height;
-	private double width;
 
 	/*-----------------
 	 * Constructor
 	 *----------------*/
 	public MyRectangle(Point2D.Double locationStart, Point2D.Double locationEnd, Color color) {
 		super(locationStart, locationEnd, color);
-		width = Math.abs(locationEnd.x - locationStart.x);
-		height = Math.abs(locationEnd.y - locationStart.y);
-
 	}
 
 	/**
@@ -36,7 +31,8 @@ public class MyRectangle extends PaintObject  implements Serializable {
 	 * 
 	 */
 	public void draw(Graphics2D g2) {
-		Rectangle2D.Double rectangle = new Rectangle2D.Double(locationStart.x, locationEnd.y, width, height);
+		Rectangle2D.Double rectangle = new Rectangle2D.Double();
+		rectangle.setFrameFromDiagonal(locationStart, locationEnd);
 		g2.setPaint(getColor());
 		g2.fill(rectangle);
 	}

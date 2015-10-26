@@ -24,8 +24,8 @@ public class MyImage extends PaintObject implements Serializable  {
 	 *----------------*/
 	public MyImage(Point2D.Double locationStart, Point2D.Double locationEnd, Image image) {
 		super(locationStart, locationEnd, Color.BLACK);
-		width = Math.abs(locationEnd.x - locationStart.x);
-		height = Math.abs(locationEnd.y - locationStart.y);
+		width = locationEnd.x - locationStart.x;
+		height = locationEnd.y - locationStart.y;
 		this.image = image;
 	}
 
@@ -38,7 +38,7 @@ public class MyImage extends PaintObject implements Serializable  {
 	 */
 	public void draw(Graphics2D g2) {
 
-		g2.drawImage(image, (int) Math.round(locationStart.x), (int) Math.round(locationEnd.y), (int) Math.round(width),
+		g2.drawImage(image, (int) Math.round(locationStart.x), (int) Math.round(locationStart.y), (int) Math.round(width),
 				(int) Math.round(height), null);
 
 	}

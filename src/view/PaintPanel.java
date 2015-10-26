@@ -39,14 +39,14 @@ public class PaintPanel extends JPanel {
 	private boolean drag = false;
 	private PaintObject currentDrawingObject;
 	private Point2D.Double currentDrawingStartPoint;
-	private JFrame parent;
+	private PaintGUI parent;
 	private Image image;
 	
 
 	/*-----------------
 	 * Constructor
 	 *----------------*/
-	public PaintPanel(JFrame parent) {
+	public PaintPanel(PaintGUI parent) {
 		try {
 			image = ImageIO.read(new File("./images/doge.jpeg"));
 		} catch (IOException e) {
@@ -107,7 +107,7 @@ public class PaintPanel extends JPanel {
 	}
 	
 	private PaintObject getPaintObject(Point2D.Double start, Point2D.Double end, Color color) {
-		Class<?> type = ((PaintGUI) parent).getSelectedShape();
+		Class<?> type = parent.getSelectedShape();
 		PaintObject retval = null;
 		
 		if(type == MyOval.class)
