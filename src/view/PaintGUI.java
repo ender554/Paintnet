@@ -22,6 +22,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -42,6 +43,7 @@ public class PaintGUI extends JFrame {
 	private JRadioButton rectangleButton;
 	private JRadioButton imageButton;
 	private ButtonGroup bg;
+	private Color color;
 
 	// main method creates new PaintGUI and sets visible
 	public static void main(String[] args) {
@@ -62,6 +64,7 @@ public class PaintGUI extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		JColorChooser chooser = new JColorChooser();
 
 		// gui set up
 		this.setSize(1024, 768);
@@ -78,6 +81,7 @@ public class PaintGUI extends JFrame {
 		//pane.setPreferredSize(new Dimension((int)(getWidth() * .985), (int) (getHeight() * .75)));
 		this.add(pane, BorderLayout.CENTER);
 		
+		
 		ovalButton = new JRadioButton("Oval");
 		lineButton = new JRadioButton("Line");
 		lineButton.setSelected(true);
@@ -91,25 +95,16 @@ public class PaintGUI extends JFrame {
 		bg.add(imageButton);
 		
 		
-		JButton colorButton = new JButton("Color");
-		colorButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				
-			}
-			
-		});
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(lineButton);
 		buttonPanel.add(rectangleButton);
 		buttonPanel.add(ovalButton);				
 		buttonPanel.add(imageButton);
-		buttonPanel.add(colorButton);
 		buttonPanel.setLocation(getWidth() / 2, (int) (getHeight() * .78));
 		buttonPanel.setSize(400, 40);
 		this.add(buttonPanel, BorderLayout.NORTH);
+		this.add(chooser, BorderLayout.SOUTH);
+		color = chooser.getColor();
 
 	}
 	
