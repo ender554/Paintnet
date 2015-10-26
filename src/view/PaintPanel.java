@@ -98,7 +98,9 @@ public class PaintPanel extends JPanel {
 	 */
 	private void drawShapesOnMe(Graphics2D g2, List<PaintObject> shapes) {
 		for (PaintObject shape : shapes)
-			shape.draw(g2);
+			if(shape != null) {
+				shape.draw(g2);
+			}
 		
 		if(currentDrawingObject != null) {
 			currentDrawingObject.drawGhost(g2);
@@ -183,7 +185,9 @@ public class PaintPanel extends JPanel {
 
 	
 		private void addShapeToList() {
-			shapes.add(currentDrawingObject);
+			if(currentDrawingObject != null) {
+				shapes.add(currentDrawingObject);
+			}
 			currentDrawingObject = null;
 			repaint();
 		}
