@@ -68,13 +68,9 @@ public class PaintGUI extends JFrame {
 		this.setLocation(300, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Netpaint");
-		//a = row number, b = column number, c = horizontal gap, d = vertical gap.
+		
 		this.setLayout(new BorderLayout());
 
-		
-		//pane.setSize((int)(getWidth() * .985), (int) (getHeight() * .75));
-		
-		
 		canvas.setPreferredSize(new Dimension(2000,2000));
 		canvas.setLocation(0, 0);
 		canvas.setBackground(Color.WHITE);
@@ -117,8 +113,8 @@ public class PaintGUI extends JFrame {
 
 	}
 	
-	public Class getSelectedShape() {
-		Class type;
+	public Class<?> getSelectedShape() {
+		Class<?> type;
 		type = Object.class;
 		
 		if(ovalButton.isSelected())

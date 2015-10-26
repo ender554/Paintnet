@@ -127,9 +127,7 @@ public class PaintPanel extends JPanel {
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			drag = true;
-			if(draw) {
-				System.out.println(e.getX() + " " + e.getY());
-				//currentDrawingObject = new MyLine(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
+			if(draw) {							
 				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
 				repaint();
 			}
@@ -138,9 +136,7 @@ public class PaintPanel extends JPanel {
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			if(draw) {
-				System.out.println(e.getX() + " " + e.getY());
-				//currentDrawingObject = new MyLine(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
+			if(draw) {				
 				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
 				repaint();
 			}
@@ -149,16 +145,7 @@ public class PaintPanel extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			/*if(draw == false) {
-				currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
-			
-				shapes.add(currentDrawingObject);
-			}*/
-			
-			
-			
-			//draw = !draw;
-			
+		
 		}
 
 		@Override
@@ -175,7 +162,6 @@ public class PaintPanel extends JPanel {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			System.out.println("pressed");
 			draw = !draw;
 			currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
 			
@@ -187,7 +173,6 @@ public class PaintPanel extends JPanel {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			System.out.println("released");
 			if(drag) {
 				draw = false;
 				shapes.add(currentDrawingObject);
