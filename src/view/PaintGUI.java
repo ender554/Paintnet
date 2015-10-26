@@ -79,8 +79,7 @@ public class PaintGUI extends JFrame {
 		canvas.setLocation(0, 0);
 		canvas.setBackground(Color.WHITE);
 		pane.setViewportView(canvas);
-		// pane.setPreferredSize(new Dimension((int)(getWidth() * .985), (int)
-		// (getHeight() * .75)));
+		pane.getVerticalScrollBar().setUnitIncrement(16);
 		this.add(pane, BorderLayout.CENTER);
 
 		ovalButton = new JRadioButton("Oval");
