@@ -27,6 +27,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import model.MyImage;
 import model.MyLine;
@@ -64,65 +66,77 @@ public class PaintGUI extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		JColorChooser chooser = new JColorChooser();
 
 		// gui set up
 		this.setSize(1024, 768);
 		this.setLocation(300, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Netpaint");
-		
+
 		this.setLayout(new BorderLayout());
 
-		canvas.setPreferredSize(new Dimension(2000,2000));
+		canvas.setPreferredSize(new Dimension(2000, 2000));
 		canvas.setLocation(0, 0);
 		canvas.setBackground(Color.WHITE);
 		pane.setViewportView(canvas);
-		//pane.setPreferredSize(new Dimension((int)(getWidth() * .985), (int) (getHeight() * .75)));
+		// pane.setPreferredSize(new Dimension((int)(getWidth() * .985), (int)
+		// (getHeight() * .75)));
 		this.add(pane, BorderLayout.CENTER);
-		
-		
+
 		ovalButton = new JRadioButton("Oval");
 		lineButton = new JRadioButton("Line");
 		lineButton.setSelected(true);
 		rectangleButton = new JRadioButton("Rectangle");
 		imageButton = new JRadioButton("Image");
-		
+
 		bg = new ButtonGroup();
 		bg.add(ovalButton);
 		bg.add(lineButton);
 		bg.add(rectangleButton);
 		bg.add(imageButton);
-		
-		
+
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(lineButton);
 		buttonPanel.add(rectangleButton);
-		buttonPanel.add(ovalButton);				
+		buttonPanel.add(ovalButton);
 		buttonPanel.add(imageButton);
 		buttonPanel.setLocation(getWidth() / 2, (int) (getHeight() * .78));
 		buttonPanel.setSize(400, 40);
 		this.add(buttonPanel, BorderLayout.NORTH);
-		this.add(chooser, BorderLayout.SOUTH);
-		color = chooser.getColor();
+
+		final JColorChooser tcc = new JColorChooser();
+		tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				color = tcc.getColor();
+
+			}
+		});
+
+		this.add(tcc, BorderLayout.SOUTH);
+
+		this.color = tcc.getColor();
 
 	}
-	
+
 	public Class<?> getSelectedShape() {
 		Class<?> type;
 		type = Object.class;
-		
-		if(ovalButton.isSelected())
+
+		if (ovalButton.isSelected())
 			type = MyOval.class;
-		else if(lineButton.isSelected())
+		else if (lineButton.isSelected())
 			type = MyLine.class;
-		else if(rectangleButton.isSelected())
+		else if (rectangleButton.isSelected())
 			type = MyRectangle.class;
-		else if(imageButton.isSelected())
+		else if (imageButton.isSelected())
 			type = MyImage.class;
-		
+
 		return type;
 	}
-	
+	public Color getColor(){
+		return this.color;
+	}
 
 }

@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 public abstract class PaintObject implements Serializable {
 	protected Point2D.Double locationStart, locationEnd;
-	private Color color;
+	protected Color color;
 	protected Image myImage;
 
 	/*-----------------
@@ -24,7 +24,7 @@ public abstract class PaintObject implements Serializable {
 	public PaintObject(Point2D.Double locationStart, Point2D.Double locationEnd, Color color) {
 		this.locationStart = locationStart;
 		this.locationEnd = locationEnd;
-		this.color = new Color(color.getRed(), color.getGreen(), color.getBlue());
+		this.color = color;
 
 	}
 
@@ -34,6 +34,8 @@ public abstract class PaintObject implements Serializable {
 		this.myImage = myImage;
 	}
 
+	
+	
 	/*-----------------
 	 * Getters
 	 *----------------*/
@@ -59,5 +61,7 @@ public abstract class PaintObject implements Serializable {
 	 * 
 	 */
 	public abstract void draw(Graphics2D g2);
+	
+	public abstract void drawGhost(Graphics2D g2);
 
 }

@@ -33,8 +33,17 @@ public class MyRectangle extends PaintObject  implements Serializable {
 	public void draw(Graphics2D g2) {
 		Rectangle2D.Double rectangle = new Rectangle2D.Double();
 		rectangle.setFrameFromDiagonal(locationStart, locationEnd);
-		g2.setPaint(getColor());
+		g2.setPaint(color);
 		g2.fill(rectangle);
+	}
+
+	@Override
+	public void drawGhost(Graphics2D g2) {
+		Rectangle2D.Double rectangle = new Rectangle2D.Double();
+		rectangle.setFrameFromDiagonal(locationStart, locationEnd);
+		g2.setPaint(color);
+		g2.draw(rectangle);
+		
 	}
 
 }

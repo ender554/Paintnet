@@ -101,7 +101,7 @@ public class PaintPanel extends JPanel {
 			shape.draw(g2);
 		
 		if(currentDrawingObject != null) {
-			currentDrawingObject.draw(g2);
+			currentDrawingObject.drawGhost(g2);
 		}
 
 	}
@@ -128,7 +128,7 @@ public class PaintPanel extends JPanel {
 		public void mouseDragged(MouseEvent e) {
 			drag = true;
 			if(draw) {							
-				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.BLACK);
+				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), parent.getColor());
 				repaint();
 			}
 		
@@ -137,7 +137,7 @@ public class PaintPanel extends JPanel {
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			if(draw) {				
-				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.BLACK);
+				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), parent.getColor());
 				repaint();
 			}
 			
@@ -168,6 +168,7 @@ public class PaintPanel extends JPanel {
 			if(!draw) {
 				shapes.add(currentDrawingObject);
 			}
+			repaint();
 			
 		}
 
@@ -176,6 +177,7 @@ public class PaintPanel extends JPanel {
 			if(drag) {
 				draw = false;
 				shapes.add(currentDrawingObject);
+				repaint();
 			}
 			drag = false;
 		}

@@ -33,4 +33,9 @@ public class MyLine extends PaintObject implements Serializable  {
 
 	}
 
+	@Override
+	public void drawGhost(Graphics2D g2) {
+		draw(g2);
+	}
+
 }

@@ -10,7 +10,9 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 public class MyImage extends PaintObject implements Serializable  {
@@ -41,6 +43,15 @@ public class MyImage extends PaintObject implements Serializable  {
 		g2.drawImage(image, (int) Math.round(locationStart.x), (int) Math.round(locationStart.y), (int) Math.round(width),
 				(int) Math.round(height), null);
 
+	}
+
+	@Override
+	public void drawGhost(Graphics2D g2) {
+		Rectangle2D.Double rectangle = new Rectangle2D.Double();
+		rectangle.setFrameFromDiagonal(locationStart, locationEnd);
+		g2.setPaint(color);
+		g2.draw(rectangle);
+		
 	}
 
 }
