@@ -13,7 +13,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-public class MyRectangle extends PaintObject  implements Serializable {
+@SuppressWarnings("serial")
+public class MyRectangle extends PaintObject implements Serializable {
 
 	/*-----------------
 	 * Constructor
@@ -37,13 +38,20 @@ public class MyRectangle extends PaintObject  implements Serializable {
 		g2.fill(rectangle);
 	}
 
-	@Override
+	/**
+	 * Method: drawGhost draws the unfilled shape
+	 * 
+	 * @param g2
+	 *            Graphics2D
+	 * @return none
+	 * 
+	 */
 	public void drawGhost(Graphics2D g2) {
 		Rectangle2D.Double rectangle = new Rectangle2D.Double();
 		rectangle.setFrameFromDiagonal(locationStart, locationEnd);
 		g2.setPaint(color);
 		g2.draw(rectangle);
-		
+
 	}
 
 }

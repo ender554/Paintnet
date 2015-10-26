@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public abstract class PaintObject implements Serializable {
 	protected Point2D.Double locationStart, locationEnd;
 	protected Color color;
@@ -62,6 +63,14 @@ public abstract class PaintObject implements Serializable {
 	 */
 	public abstract void draw(Graphics2D g2);
 	
+	/**
+	 * Method: drawGhost
+	 * 			draws the unfilled shape
+	 * @param g2
+	 * 		Graphics2D
+	 * @return abstract
+	 * 
+	 */
 	public abstract void drawGhost(Graphics2D g2);
 
 }

@@ -10,7 +10,8 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 
-public class MyLine extends PaintObject implements Serializable  {
+@SuppressWarnings("serial")
+public class MyLine extends PaintObject implements Serializable {
 
 	/*-----------------
 	 * Constructor
@@ -33,7 +34,14 @@ public class MyLine extends PaintObject implements Serializable  {
 
 	}
 
-	@Override
+	/**
+	 * Method: drawGhost
+	 * 			simply draws a line
+	 * @param g2
+	 * 		Graphics2D
+	 * @return none
+	 * 
+	 */
 	public void drawGhost(Graphics2D g2) {
 		draw(g2);
 	}

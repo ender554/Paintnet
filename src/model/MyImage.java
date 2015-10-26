@@ -10,11 +10,11 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class MyImage extends PaintObject implements Serializable  {
 
 	private double width;
@@ -45,7 +45,14 @@ public class MyImage extends PaintObject implements Serializable  {
 
 	}
 
-	@Override
+	/**
+	 * Method: drawGhost
+	 * 			draws the unfilled shape
+	 * @param g2
+	 * 		Graphics2D
+	 * @return none
+	 * 
+	 */
 	public void drawGhost(Graphics2D g2) {
 		Rectangle2D.Double rectangle = new Rectangle2D.Double();
 		rectangle.setFrameFromDiagonal(locationStart, locationEnd);

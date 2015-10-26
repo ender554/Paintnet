@@ -11,9 +11,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class MyOval extends PaintObject implements Serializable  {
 
 
@@ -43,7 +43,14 @@ public class MyOval extends PaintObject implements Serializable  {
 
 	}
 
-	@Override
+	/**
+	 * Method: drawGhost
+	 * 			draws the unfilled shape
+	 * @param g2
+	 * 		Graphics2D
+	 * @return none
+	 * 
+	 */
 	public void drawGhost(Graphics2D g2) {
 		Ellipse2D.Double oval = new Ellipse2D.Double();
 		oval.setFrameFromDiagonal(locationStart, locationEnd);

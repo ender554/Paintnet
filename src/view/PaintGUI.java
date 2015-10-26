@@ -9,19 +9,11 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
-import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,12 +26,14 @@ import model.MyImage;
 import model.MyLine;
 import model.MyOval;
 import model.MyRectangle;
-import model.PaintObject;
 
 @SuppressWarnings("serial")
 public class PaintGUI extends JFrame {
 
+	@SuppressWarnings("unused")
 	private Image image;
+	
+	
 	private JRadioButton ovalButton;
 	private JRadioButton lineButton;
 	private JRadioButton rectangleButton;
@@ -79,10 +73,9 @@ public class PaintGUI extends JFrame {
 		canvas.setLocation(0, 0);
 		canvas.setBackground(Color.WHITE);
 		pane.setViewportView(canvas);
-		// pane.setPreferredSize(new Dimension((int)(getWidth() * .985), (int)
-		// (getHeight() * .75)));
 		this.add(pane, BorderLayout.CENTER);
 
+		//added buttons
 		ovalButton = new JRadioButton("Oval");
 		lineButton = new JRadioButton("Line");
 		lineButton.setSelected(true);
@@ -104,6 +97,7 @@ public class PaintGUI extends JFrame {
 		buttonPanel.setSize(400, 40);
 		this.add(buttonPanel, BorderLayout.NORTH);
 
+		//color chooser panel set up and function
 		final JColorChooser tcc = new JColorChooser();
 		tcc.getSelectionModel().addChangeListener(new ChangeListener() {
 
