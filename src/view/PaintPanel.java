@@ -166,9 +166,9 @@ public class PaintPanel extends JPanel {
 			currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
 			
 			if(!draw) {
-				shapes.add(currentDrawingObject);
+				addShapeToList();
 			}
-			repaint();
+			
 			
 		}
 
@@ -176,14 +176,17 @@ public class PaintPanel extends JPanel {
 		public void mouseReleased(MouseEvent e) {
 			if(drag) {
 				draw = false;
-				shapes.add(currentDrawingObject);
-				repaint();
+				addShapeToList();
 			}
 			drag = false;
 		}
 
 	
-		
+		private void addShapeToList() {
+			shapes.add(currentDrawingObject);
+			currentDrawingObject = null;
+			repaint();
+		}
 	}
 
 }
