@@ -140,7 +140,8 @@ public class PaintPanel extends JPanel {
 		public void mouseMoved(MouseEvent e) {
 			if(draw) {
 				System.out.println(e.getX() + " " + e.getY());
-				currentDrawingObject = new MyLine(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
+				//currentDrawingObject = new MyLine(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
+				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), Color.WHITE);
 				repaint();
 			}
 			
