@@ -73,6 +73,9 @@ public class PaintGUI extends JFrame {
 		canvas.setLocation(0, 0);
 		canvas.setBackground(Color.WHITE);
 		pane.setViewportView(canvas);
+
+		pane.getVerticalScrollBar().setUnitIncrement(16);
+
 		this.add(pane, BorderLayout.CENTER);
 
 		//added buttons

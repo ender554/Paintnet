@@ -96,9 +96,14 @@ public class PaintPanel extends JPanel {
 	 *            List of PaintObject
 	 */
 	private void drawShapesOnMe(Graphics2D g2, List<PaintObject> shapes) {
-		for (PaintObject shape : shapes)
-			shape.draw(g2);
 		
+		if(shapes != null) {
+			for (PaintObject shape : shapes)
+				if(shape != null) {
+					shape.draw(g2);
+				}
+		}
+			
 		if(currentDrawingObject != null) {
 			currentDrawingObject.drawGhost(g2);
 		}
@@ -165,9 +170,9 @@ public class PaintPanel extends JPanel {
 			currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
 			
 			if(!draw) {
-				shapes.add(currentDrawingObject);
+				addShapeToList();
 			}
-			repaint();
+			
 			
 		}
 
@@ -175,14 +180,19 @@ public class PaintPanel extends JPanel {
 		public void mouseReleased(MouseEvent e) {
 			if(drag) {
 				draw = false;
-				shapes.add(currentDrawingObject);
-				repaint();
+				addShapeToList();
 			}
 			drag = false;
 		}
 
 	
-		
+		private void addShapeToList() {
+			if(currentDrawingObject != null) {
+				shapes.add(currentDrawingObject);
+			}
+			currentDrawingObject = null;
+			repaint();
+		}
 	}
 
 }
