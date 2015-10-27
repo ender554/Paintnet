@@ -113,7 +113,7 @@ public class PaintGUI extends JFrame {
 
 		this.add(tcc, BorderLayout.SOUTH);
 
-		this.color = tcc.getColor();
+		this.color = Color.BLACK;
 
 	}
 
