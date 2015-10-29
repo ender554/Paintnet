@@ -8,6 +8,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
+
+import model.PaintObject;
 
 public class Server {
 
@@ -42,20 +45,49 @@ public class Server {
 	}
 	
 	
-	private class ServerListener extends Thread {
-		public ServerListener(ObjectInputStream is, List<ObjectOutputStream> clients) {
-			
-		}
+	
+}
+
+class ServerListener extends Thread {
+	private List<ObjectOutputStream> clients;
+	private ObjectInputStream is;
+	Vector<PaintObject> paintObjects = null;
+	
+	public ServerListener(ObjectInputStream is, List<ObjectOutputStream> clients) {
+		this.clients = clients;
+		this.is = is;
+	}
+	
+	@Override
+	public void run() {
 		
-		@Override
-		public void run() {
-			while(true) {
-				for(ObjectOutputStream os : clients) {
-					
-				}
+		
+		
+		while(true) {
+			try {
+				paintObjects = (Vector<PaintObject>) is.readObject();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			writePaintObjectsToClients();
+			
 		}
 	}
 	
+	private void writePaintObjectsToClients() {
+		for(ObjectOutputStream os : clients) {
+			try {
+				os.writeObject(paintObjects);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }
+
 
