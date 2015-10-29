@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -33,7 +34,7 @@ public class PaintPanel extends JPanel {
 
 	@SuppressWarnings("unused")
 	private PaintObject shape;
-	private List<PaintObject> shapes;
+	private Vector<PaintObject> shapes;
 	private boolean draw = false;
 	private boolean drag = false;
 	private PaintObject currentDrawingObject;
@@ -53,7 +54,7 @@ public class PaintPanel extends JPanel {
 		}
 		
 		this.parent = parent;
-		this.shapes = new ArrayList<PaintObject>();
+		this.shapes = new Vector<PaintObject>();
 		this.addMouseMotionListener(new MouseActionListener());
 		this.addMouseListener(new MouseActionListener());
 		this.currentDrawingObject = null;
@@ -65,7 +66,7 @@ public class PaintPanel extends JPanel {
 	 * @param shapes
 	 *            List of PaintObjects
 	 */
-	public void drawShapes(List<PaintObject> shapes) {
+	public void drawShapes(Vector<PaintObject> shapes) {
 		this.shapes = shapes;
 		repaint();
 	}
