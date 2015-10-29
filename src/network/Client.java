@@ -20,8 +20,9 @@ public class Client {
 	ObjectInputStream ois;
 	PaintPanel pp;
 	
-	static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
+	public static void main(String[] args) {
+		new PaintGUI().setVisible(true);
+		/*SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {					
 					new PaintGUI().setVisible(true);
@@ -29,13 +30,14 @@ public class Client {
 					e.printStackTrace();
 				}
 			}
-		});
-		
-		
+		});*/
 	}
 	
 	public Client(PaintPanel pp) {
 		this.pp = pp;
+		openConnection();
+			
+		new ServerListener().start();
 	}
 	
 	private void openConnection() {
@@ -51,6 +53,8 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	public void sendShapes(Vector<PaintObject> shapes) {
@@ -60,6 +64,20 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public Vector<PaintObject> receiveShapes() {
+		try {
+			return (Vector<PaintObject>) ois.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return new Vector<PaintObject>();
 	}
 	
 	private class ServerListener extends Thread {

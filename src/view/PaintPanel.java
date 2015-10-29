@@ -56,11 +56,12 @@ public class PaintPanel extends JPanel {
 		}
 		
 		this.parent = parent;
-		this.shapes = new Vector<PaintObject>();
+		shapes = new Vector<PaintObject>();
 		this.addMouseMotionListener(new MouseActionListener());
 		this.addMouseListener(new MouseActionListener());
 		this.currentDrawingObject = null;
 		client = new Client(this);
+	
 	}
 
 	/**

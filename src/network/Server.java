@@ -18,6 +18,8 @@ public class Server {
 
 	private static ServerSocket sock;
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<ObjectOutputStream>());
+	// current list of shapes
+	private static Vector<PaintObject> shapes;
 	
 	public static void main(String[] args) throws IOException {
 		sock = new ServerSocket(SERVER_PORT);
@@ -33,11 +35,16 @@ public class Server {
 			
 			clients.add(os);
 			
-			new ClientHandler(is, clients).start();
-
+			new ClientHandler(is, clients).start();			
+			
+			os.writeObject(shapes);
 			
 			System.out.println("Accepted a new connection from " + s.getInetAddress());
 		}
+	}
+	
+	public static void setPaintObjects(Vector<PaintObject> shapes) {
+		Server.shapes = shapes;
 	}
 	
 }
@@ -65,6 +72,7 @@ class ClientHandler extends Thread {
 				closeAll();
 				e.printStackTrace();
 			}
+			Server.setPaintObjects(paintObjects);
 			writePaintObjectsToClients();
 			
 		}
