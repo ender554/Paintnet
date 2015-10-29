@@ -51,8 +51,7 @@ public class PaintGUI extends JFrame {
 	 * Constructor
 	 *----------------*/
 	public PaintGUI() {
-		JScrollPane pane = new JScrollPane();
-		PaintPanel canvas = new PaintPanel(this);
+
 
 		// read in image try catch
 		try {
@@ -62,6 +61,14 @@ public class PaintGUI extends JFrame {
 		}
 
 		// gui set up
+		layoutGUI();
+
+	}
+	
+	public void layoutGUI() {
+		JScrollPane pane = new JScrollPane();
+		PaintPanel canvas = new PaintPanel(this);
+		
 		this.setSize(1024, 768);
 		this.setLocation(300, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,7 +121,6 @@ public class PaintGUI extends JFrame {
 		this.add(tcc, BorderLayout.SOUTH);
 
 		this.color = Color.BLACK;
-
 	}
 
 	public Class<?> getSelectedShape() {

@@ -14,7 +14,7 @@ import model.PaintObject;
 
 public class Server {
 
-	public static final int SERVER_PORT = 9001;
+	public static final int SERVER_PORT = 8001;
 
 	private static ServerSocket sock;
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<ObjectOutputStream>());
@@ -33,36 +33,28 @@ public class Server {
 			
 			clients.add(os);
 			
-			ServerListener sl = new ServerListener(is,clients);
-			new ServerListener(is, clients).start();
+			new ClientHandler(is, clients).start();
 
 			
 			System.out.println("Accepted a new connection from " + s.getInetAddress());
 		}
 	}
-	public Server() {
-		
-	}
-	
-	
 	
 }
 
-class ServerListener extends Thread {
+class ClientHandler extends Thread {
 	private List<ObjectOutputStream> clients;
 	private ObjectInputStream is;
 	Vector<PaintObject> paintObjects = null;
 	
-	public ServerListener(ObjectInputStream is, List<ObjectOutputStream> clients) {
+	public ClientHandler(ObjectInputStream is, List<ObjectOutputStream> clients) {
 		this.clients = clients;
 		this.is = is;
 	}
 	
 	@Override
 	public void run() {
-		
-		
-		
+
 		while(true) {
 			try {
 				paintObjects = (Vector<PaintObject>) is.readObject();
@@ -70,7 +62,7 @@ class ServerListener extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				closeAll();
 				e.printStackTrace();
 			}
 			writePaintObjectsToClients();
@@ -83,7 +75,22 @@ class ServerListener extends Thread {
 			try {
 				os.writeObject(paintObjects);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				closeAll();
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void closeAll() {
+		try {
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for( ObjectOutputStream os : clients) {
+			try {
+				os.close();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}

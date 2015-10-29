@@ -28,6 +28,7 @@ import model.MyLine;
 import model.MyOval;
 import model.MyRectangle;
 import model.PaintObject;
+import network.Client;
 
 @SuppressWarnings("serial")
 public class PaintPanel extends JPanel {
@@ -41,6 +42,7 @@ public class PaintPanel extends JPanel {
 	private Point2D.Double currentDrawingStartPoint;
 	private PaintGUI parent;
 	private Image image;
+	private Client client;
 	
 
 	/*-----------------
@@ -58,6 +60,7 @@ public class PaintPanel extends JPanel {
 		this.addMouseMotionListener(new MouseActionListener());
 		this.addMouseListener(new MouseActionListener());
 		this.currentDrawingObject = null;
+		client = new Client(this);
 	}
 
 	/**
@@ -190,6 +193,7 @@ public class PaintPanel extends JPanel {
 		private void addShapeToList() {
 			if(currentDrawingObject != null) {
 				shapes.add(currentDrawingObject);
+				client.sendShapes(shapes);
 			}
 			currentDrawingObject = null;
 			repaint();
