@@ -66,12 +66,11 @@ class ClientHandler extends Thread {
 			try {
 				paintObjects = (Vector<PaintObject>) is.readObject();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				closeAll();
 				e.printStackTrace();
 			}
+			
 			Server.setPaintObjects(paintObjects);
 			writePaintObjectsToClients();
 			
@@ -83,7 +82,9 @@ class ClientHandler extends Thread {
 			try {
 				os.writeObject(paintObjects);
 			} catch (IOException e) {
-				closeAll();
+			
+				clients.remove(os);
+				
 				e.printStackTrace();
 			}
 		}

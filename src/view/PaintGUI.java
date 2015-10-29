@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -72,6 +74,12 @@ public class PaintGUI extends JFrame {
 		this.setSize(1024, 768);
 		this.setLocation(300, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosed(WindowEvent e) {
+				canvas.getClient().close();
+				System.exit(0);
+			}
+		});
 		this.setTitle("Netpaint");
 
 		this.setLayout(new BorderLayout());

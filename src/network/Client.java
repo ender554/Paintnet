@@ -13,90 +13,95 @@ import view.PaintGUI;
 import view.PaintPanel;
 
 public class Client {
-	
+
 	private static final String ADDRESS = "localhost";
-	Socket socket;	
+	Socket socket;
 	ObjectOutputStream oos;
 	ObjectInputStream ois;
 	PaintPanel pp;
-	
+	private ServerListener sl;
+	private boolean running;
+
 	public static void main(String[] args) {
-		new PaintGUI().setVisible(true);
-		/*SwingUtilities.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				try {					
+				try {
 					new PaintGUI().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});*/
+		});
 	}
-	
+
 	public Client(PaintPanel pp) {
 		this.pp = pp;
 		openConnection();
-			
-		new ServerListener().start();
+
+		running = true;
+		sl = new ServerListener();
+		sl.start();
+
 	}
-	
+
+	public void close() {
+		running = false;
+	}
+
 	private void openConnection() {
 		/* Our server is on our computer, but make sure to use the same port. */
 		try {
-			// TODO 6: Connect to the Server
 			socket = new Socket(ADDRESS, Server.SERVER_PORT);
-			
-			
+
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
 			System.out.println("Connected to server at " + ADDRESS + ":" + Server.SERVER_PORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
+
 	public void sendShapes(Vector<PaintObject> shapes) {
 		try {
 			oos.writeObject(shapes);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Vector<PaintObject> receiveShapes() {
 		try {
 			return (Vector<PaintObject>) ois.readObject();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
-		
+
 		return new Vector<PaintObject>();
 	}
+
 	
+
 	private class ServerListener extends Thread {
 
 		@Override
 		public void run() {
-			// TODO 9: Repeatedly accept String objects from the server and add
-			// them to our model.
-			while(true) {
+
+			while (running) {
 				Vector<PaintObject> paintObjects = null;
 				try {
 					paintObjects = (Vector<PaintObject>) ois.readObject();
 				} catch (ClassNotFoundException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					break;
 				}
-				if(paintObjects != null)
+				if (paintObjects != null)
 					pp.drawShapes(paintObjects);
 			}
 		}
+
 	}
 }

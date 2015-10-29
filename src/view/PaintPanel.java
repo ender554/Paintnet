@@ -64,6 +64,10 @@ public class PaintPanel extends JPanel {
 	
 	}
 
+	public Client getClient() {
+		return client;
+	}
+	
 	/**
 	 * Method: drawShapes constructs shape array and repaints
 	 * 
