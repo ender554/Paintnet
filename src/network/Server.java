@@ -79,18 +79,18 @@ class ClientHandler extends Thread {
 	}
 	
 	private void writePaintObjectsToClients() {
+				
 		
-		List<ObjectOutputStream> clientsToRemove = new ArrayList<ObjectOutputStream>();
-		
-		for(ObjectOutputStream os : clients) {
-			try {
+		Iterator<ObjectOutputStream> iter = clients.iterator();
+		while(iter.hasNext()) {
+			
+			ObjectOutputStream os = iter.next();
+			try {				
 				os.writeObject(paintObjects);
 			} catch (IOException e) {				
-				clientsToRemove.add(os);																
+				clients.remove(os);																
 			}
 		}
-		
-		clients.removeAll(clientsToRemove);
 		
 	}
 	
