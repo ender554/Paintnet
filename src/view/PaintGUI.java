@@ -73,9 +73,10 @@ public class PaintGUI extends JFrame {
 		
 		this.setSize(1024, 768);
 		this.setLocation(300, 200);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
-			public void windowClosed(WindowEvent e) {
+			public void windowClosing(WindowEvent e) {
+				System.out.println("Closed");
 				canvas.getClient().close();
 				System.exit(0);
 			}

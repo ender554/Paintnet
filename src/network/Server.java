@@ -62,13 +62,14 @@ class ClientHandler extends Thread {
 	@Override
 	public void run() {
 
-		while(true) {
+		while(true) {			
 			try {
 				paintObjects = (Vector<PaintObject>) is.readObject();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("Client closed connection");
+				break;
 			}
 			
 			Server.setPaintObjects(paintObjects);
@@ -82,10 +83,10 @@ class ClientHandler extends Thread {
 			try {
 				os.writeObject(paintObjects);
 			} catch (IOException e) {
-			
-				clients.remove(os);
 				
-				e.printStackTrace();
+				clients.remove(os);
+												
+				//e.printStackTrace();
 			}
 		}
 	}
