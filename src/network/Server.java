@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -24,7 +25,8 @@ public class Server {
 	public static void main(String[] args) throws IOException {
 		sock = new ServerSocket(SERVER_PORT);
 		System.out.println("Server started on port " + SERVER_PORT);
-
+		
+		
 		while (true) {
 			Socket s = sock.accept();
 			
@@ -34,9 +36,7 @@ public class Server {
 
 			
 			clients.add(os);
-			
 			new ClientHandler(is, clients).start();			
-			
 			os.writeObject(shapes);
 			
 			System.out.println("Accepted a new connection from " + s.getInetAddress());
@@ -68,7 +68,7 @@ class ClientHandler extends Thread {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-				System.out.println("Client closed connection");
+				System.out.println("Client closed connection");				
 				break;
 			}
 			
@@ -79,32 +79,20 @@ class ClientHandler extends Thread {
 	}
 	
 	private void writePaintObjectsToClients() {
+		
+		List<ObjectOutputStream> clientsToRemove = new ArrayList<ObjectOutputStream>();
+		
 		for(ObjectOutputStream os : clients) {
 			try {
 				os.writeObject(paintObjects);
-			} catch (IOException e) {
-				
-				clients.remove(os);
-												
-				//e.printStackTrace();
+			} catch (IOException e) {				
+				clientsToRemove.add(os);																
 			}
 		}
+		
+		clients.removeAll(clientsToRemove);
+		
 	}
 	
-	private void closeAll() {
-		try {
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		for( ObjectOutputStream os : clients) {
-			try {
-				os.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	
 }
-
-
