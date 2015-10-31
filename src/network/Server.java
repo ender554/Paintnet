@@ -82,19 +82,19 @@ class ClientHandler extends Thread {
 		
 		List<ObjectOutputStream> clientsToRemove = new ArrayList<ObjectOutputStream>();
 		
-		/*
+		ObjectOutputStream os;
 		Iterator<ObjectOutputStream> iter = clients.iterator();
 		while(iter.hasNext()) {
 			
-			ObjectOutputStream os = iter.next();
+			os = iter.next();
 			try {				
 				os.writeObject(paintObjects);
 			} catch (IOException e) {				
-				clients.remove(os);																
+				iter.remove();															
 			}
 		}
-		*/
 		
+		/*
 		for(ObjectOutputStream os : clients) {
 			try {
 				os.writeObject(paintObjects);
@@ -104,7 +104,7 @@ class ClientHandler extends Thread {
 		}
 		
 		clients.removeAll(clientsToRemove);
-		
+		*/
 	}
 	
 	
