@@ -114,7 +114,7 @@ public class PaintPanel extends JPanel {
 		}
 			
 		if(currentDrawingObject != null) {
-			currentDrawingObject.drawGhost(g2);
+			currentDrawingObject.draw(g2);
 		}
 
 	}
