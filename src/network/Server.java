@@ -82,29 +82,18 @@ class ClientHandler extends Thread {
 		
 		List<ObjectOutputStream> clientsToRemove = new ArrayList<ObjectOutputStream>();
 		
-		ObjectOutputStream os;
-		Iterator<ObjectOutputStream> iter = clients.iterator();
-		while(iter.hasNext()) {
-			
-			os = iter.next();
-			try {				
-				os.writeObject(paintObjects);
-			} catch (IOException e) {				
-				iter.remove();															
-			}
-		}
 		
-		/*
-		for(ObjectOutputStream os : clients) {
-			try {
+		for(ObjectOutputStream os : clients) {						
+			try {				
+				os.reset();  // Avoid sending the same serialized object next time.
 				os.writeObject(paintObjects);
 			} catch (IOException e) {				
-				clientsToRemove.add(os);																
+				clientsToRemove.add(os);														
 			}
 		}
 		
 		clients.removeAll(clientsToRemove);
-		*/
+
 	}
 	
 	
