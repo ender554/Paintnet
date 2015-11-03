@@ -78,13 +78,12 @@ class ClientHandler extends Thread {
 	public void run() {
 		//Server.getNumClients() <= numConnected
 		
-		System.out.println("Thread: " + this.getId() + " running");
-		System.out.println("number of clients: " + clients.size());
+		//System.out.println("Thread: " + this.getId() + " running");
+		//System.out.println("number of clients: " + clients.size());
 		
 		while(true) {			
-			//System.out.println(Server.getNumClients() + " " + numConnected);
 			
-			System.out.println("Thread " + this.getId() + ": " + clients);
+			//System.out.println("Thread " + this.getId() + ": " + clients);
 			
 			try {
 				paintObjects = (Vector<PaintObject>) is.readObject();
@@ -105,10 +104,9 @@ class ClientHandler extends Thread {
 		try {
 			is.close();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println("Thread stopping: " + this.getId());
+		//System.out.println("Thread stopping: " + this.getId());
 	}
 	
 	private void writePaintObjectsToClients() {
