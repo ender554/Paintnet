@@ -62,7 +62,9 @@ public class Client {
 			ois = new ObjectInputStream(socket.getInputStream());
 			System.out.println("Connected to server at " + ADDRESS + ":" + Server.SERVER_PORT);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Failed to connect to server at " + ADDRESS + ":" + Server.SERVER_PORT);
+			System.out.println("Exiting...");
+			System.exit(1);
 		}
 
 	}
