@@ -1,3 +1,9 @@
+/*--------------------------------------------
+ * Author(s): Daniel SPence, Joshua Adams
+ * server side of network
+ * 
+ */
+
 package network;
 
 import java.io.IOException;
@@ -7,7 +13,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -51,6 +56,9 @@ public class Server {
 		}
 	}
 	
+	/*---------------------------
+	 * setters and getters
+	 *--------------------------*/
 	public static void setPaintObjects(Vector<PaintObject> shapes) {
 		Server.shapes = shapes;
 	}
@@ -63,17 +71,23 @@ public class Server {
 	
 }
 
+/**
+ * ClientHandler class
+ * 
+ *
+ */
 class ClientHandler extends Thread {
 	private List<ObjectOutputStream> clients;
 	private ObjectInputStream is;
 	Vector<PaintObject> paintObjects = null;
 
-	
+	//constructor
 	public ClientHandler(ObjectInputStream is, List<ObjectOutputStream> clients) {
 		this.clients = clients;
 		this.is = is;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		//Server.getNumClients() <= numConnected

@@ -32,10 +32,9 @@ import model.MyLine;
 import model.MyOval;
 import model.MyRectangle;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 public class PaintGUI extends JFrame {
 
-	@SuppressWarnings("unused")
 	private Image image;
 	
 	private JButton colorButton;
@@ -45,7 +44,6 @@ public class PaintGUI extends JFrame {
 	private JRadioButton imageButton;
 	private ButtonGroup bg;
 	private Color color;
-	private JColorChooser tcc;
 
 	// main method creates new PaintGUI and sets visible
 	public static void main(String[] args) {
