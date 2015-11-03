@@ -61,10 +61,10 @@ public class MyImage extends PaintObject implements Serializable {
 			bufferImage();
 		}
 		
-		if (image != null) {
-			g2.drawImage(image, (int) Math.round(locationStart.x), (int) Math.round(locationStart.y),
+		
+		g2.drawImage(image, (int) Math.round(locationStart.x), (int) Math.round(locationStart.y),
 					(int) Math.round(width), (int) Math.round(height), null);
-		}
+		
 
 	}
 
