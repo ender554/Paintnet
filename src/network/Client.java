@@ -20,7 +20,7 @@ public class Client {
 	ObjectInputStream ois;
 	PaintPanel pp;
 	private ServerListener sl;
-	private boolean running;
+	private volatile boolean running;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

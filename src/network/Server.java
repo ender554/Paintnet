@@ -31,6 +31,8 @@ public class Server {
 		
 		
 		while (true) {
+			List<ObjectOutputStream> oneClient = new ArrayList<ObjectOutputStream>();
+			
 			Socket s = sock.accept();
 			numConnected ++;
 			
@@ -38,9 +40,9 @@ public class Server {
 			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
 			ObjectOutputStream os = new ObjectOutputStream(s.getOutputStream());
 
-			
+			oneClient.add(os);
 			clients.add(os);
-			ClientHandler cl = new ClientHandler(is, clients, numConnected);
+			ClientHandler cl = new ClientHandler(is, clients);
 			cl.start();
 			os.writeObject(shapes);
 			
@@ -55,6 +57,9 @@ public class Server {
 	public static int getNumClients(){
 		return numConnected;
 	}
+	public static void setNumClients(int numClients) {
+		Server.numConnected = numClients;
+	}
 	
 }
 
@@ -62,31 +67,48 @@ class ClientHandler extends Thread {
 	private List<ObjectOutputStream> clients;
 	private ObjectInputStream is;
 	Vector<PaintObject> paintObjects = null;
-	private int numConnected;
+
 	
-	public ClientHandler(ObjectInputStream is, List<ObjectOutputStream> clients, int numClients) {
+	public ClientHandler(ObjectInputStream is, List<ObjectOutputStream> clients) {
 		this.clients = clients;
 		this.is = is;
-		this.numConnected = numClients;
 	}
 	
 	@Override
 	public void run() {
-
-		while(Server.getNumClients() <= numConnected) {			
+		//Server.getNumClients() <= numConnected
+		
+		System.out.println("Thread: " + this.getId() + " running");
+		System.out.println("number of clients: " + clients.size());
+		
+		while(true) {			
+			//System.out.println(Server.getNumClients() + " " + numConnected);
+			
+			System.out.println("Thread " + this.getId() + ": " + clients);
+			
 			try {
 				paintObjects = (Vector<PaintObject>) is.readObject();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-				System.out.println("Client closed connection");				
+				System.out.println("Client closed connection");	
+				
 				break;
 			}
 			
 			Server.setPaintObjects(paintObjects);
 			writePaintObjectsToClients();
 			
+			
 		}
+		
+		try {
+			is.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("Thread stopping: " + this.getId());
 	}
 	
 	private void writePaintObjectsToClients() {
@@ -102,9 +124,9 @@ class ClientHandler extends Thread {
 				clientsToRemove.add(os);														
 			}
 		}
-		
-		clients.removeAll(clientsToRemove);
 
+		clients.removeAll(clientsToRemove);
+		
 	}
 	
 	
