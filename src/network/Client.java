@@ -69,6 +69,7 @@ public class Client {
 
 	public void sendShapes(Vector<PaintObject> shapes) {
 		try {
+			oos.reset();
 			oos.writeObject(shapes);
 		} catch (IOException e) {
 			System.out.println("Server closed connection");
