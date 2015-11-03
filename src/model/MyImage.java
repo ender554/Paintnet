@@ -40,6 +40,15 @@ public class MyImage extends PaintObject implements Serializable {
 		
 	}
 	
+	/**
+	 * method: bufferImage
+	 * 
+	 * adds the image
+	 * 
+	 * @param none
+	 * @return none
+	 * 
+	 */
 	private void bufferImage() {
 		try {
 			image = ImageIO.read(new File(fileName));
@@ -57,6 +66,7 @@ public class MyImage extends PaintObject implements Serializable {
 	 */
 	public void draw(Graphics2D g2) {
 		
+		//prevents lag on the network 
 		if(image == null) {
 			bufferImage();
 		}

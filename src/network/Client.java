@@ -1,3 +1,9 @@
+/*--------------------------------------------
+ * Author(s): Daniel SPence, Joshua Adams
+ * client side of network
+ * 
+ */
+
 package network;
 
 import java.io.IOException;
@@ -34,6 +40,7 @@ public class Client {
 		});
 	}
 
+	//constructor
 	public Client(PaintPanel pp) {
 		this.pp = pp;
 		openConnection();
@@ -44,6 +51,7 @@ public class Client {
 
 	}
 
+	//closes connection
 	public void close() {
 		try {
 			socket.close();
@@ -53,6 +61,7 @@ public class Client {
 		running = false;
 	}
 
+	//opens connection to the server 
 	private void openConnection() {
 		/* Our server is on our computer, but make sure to use the same port. */
 		try {
@@ -69,6 +78,7 @@ public class Client {
 
 	}
 
+	//sends shapes to the server
 	public void sendShapes(Vector<PaintObject> shapes) {
 		try {
 			oos.reset();
@@ -79,6 +89,8 @@ public class Client {
 		}
 	}
 
+	//receives the shapes
+	@SuppressWarnings("unchecked")
 	public Vector<PaintObject> receiveShapes() {
 		try {
 			return (Vector<PaintObject>) ois.readObject();
@@ -95,8 +107,10 @@ public class Client {
 
 	
 
+	//listener for server
 	private class ServerListener extends Thread {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run() {
 

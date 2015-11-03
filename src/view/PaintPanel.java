@@ -30,10 +30,9 @@ import model.MyRectangle;
 import model.PaintObject;
 import network.Client;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 public class PaintPanel extends JPanel {
 
-	@SuppressWarnings("unused")
 	private PaintObject shape;
 	private Vector<PaintObject> shapes;
 	private boolean draw = false;
