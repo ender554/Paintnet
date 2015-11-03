@@ -41,33 +41,28 @@ public class PaintPanel extends JPanel {
 	private PaintObject currentDrawingObject;
 	private Point2D.Double currentDrawingStartPoint;
 	private PaintGUI parent;
-	private Image image;
+	private String image;
 	private Client client;
-	
 
 	/*-----------------
 	 * Constructor
 	 *----------------*/
 	public PaintPanel(PaintGUI parent) {
-		try {
-			image = ImageIO.read(new File("./images/doge.jpeg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		image = "./images/doge.jpeg";
+
 		this.parent = parent;
 		shapes = new Vector<PaintObject>();
 		this.addMouseMotionListener(new MouseActionListener());
 		this.addMouseListener(new MouseActionListener());
 		this.currentDrawingObject = null;
 		client = new Client(this);
-	
+
 	}
 
 	public Client getClient() {
 		return client;
 	}
-	
+
 	/**
 	 * Method: drawShapes constructs shape array and repaints
 	 * 
@@ -89,9 +84,8 @@ public class PaintPanel extends JPanel {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;	
+		Graphics2D g2 = (Graphics2D) g;
 		drawShapesOnMe(g2, shapes);
-		
 
 	}
 
@@ -105,98 +99,98 @@ public class PaintPanel extends JPanel {
 	 *            List of PaintObject
 	 */
 	private void drawShapesOnMe(Graphics2D g2, List<PaintObject> shapes) {
-		
-		if(shapes != null) {
+
+		if (shapes != null) {
 			for (PaintObject shape : shapes)
-				if(shape != null) {
+				if (shape != null) {
 					shape.draw(g2);
 				}
 		}
-			
-		if(currentDrawingObject != null) {
+
+		if (currentDrawingObject != null) {
 			currentDrawingObject.draw(g2);
 		}
 
 	}
-	
+
 	private PaintObject getPaintObject(Point2D.Double start, Point2D.Double end, Color color) {
 		Class<?> type = parent.getSelectedShape();
 		PaintObject retval = null;
-		
-		if(type == MyOval.class)
+
+		if (type == MyOval.class)
 			retval = new MyOval(start, end, color);
-		else if(type == MyLine.class)
+		else if (type == MyLine.class)
 			retval = new MyLine(start, end, color);
-		else if(type == MyImage.class)
+		else if (type == MyImage.class)
 			retval = new MyImage(start, end, image);
-		else if(type == MyRectangle.class)
+		else if (type == MyRectangle.class)
 			retval = new MyRectangle(start, end, color);
-		
+
 		return retval;
 	}
-	
+
 	private class MouseActionListener implements MouseMotionListener, MouseListener {
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			drag = true;
-			if(draw) {							
-				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), parent.getColor());
+			if (draw) {
+				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()),
+						parent.getColor());
 				repaint();
 			}
-		
+
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			if(draw) {				
-				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()), parent.getColor());
+			if (draw) {
+				currentDrawingObject = getPaintObject(currentDrawingStartPoint, new Point2D.Double(e.getX(), e.getY()),
+						parent.getColor());
 				repaint();
 			}
-			
+
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-		
+
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			draw = !draw;
 			currentDrawingStartPoint = new Point2D.Double(e.getX(), e.getY());
-			
-			if(!draw) {
+
+			if (!draw) {
 				addShapeToList();
 			}
-			
-			
+
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			if(drag) {
+			if (drag) {
 				draw = false;
 				addShapeToList();
 			}
 			drag = false;
 		}
 
-	
 		private void addShapeToList() {
-			if(currentDrawingObject != null) {
+			if (currentDrawingObject != null) {
 				shapes.add(currentDrawingObject);
 				client.sendShapes(shapes);
 			}

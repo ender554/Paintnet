@@ -18,6 +18,8 @@ public class Server {
 	public static final int SERVER_PORT = 8001;
 
 	private static ServerSocket sock;
+	private static int numConnected;
+	
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<ObjectOutputStream>());
 	// current list of shapes
 	private static Vector<PaintObject> shapes;
@@ -25,10 +27,12 @@ public class Server {
 	public static void main(String[] args) throws IOException {
 		sock = new ServerSocket(SERVER_PORT);
 		System.out.println("Server started on port " + SERVER_PORT);
+		numConnected = 0;
 		
 		
 		while (true) {
 			Socket s = sock.accept();
+			numConnected ++;
 			
 
 			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
@@ -36,15 +40,20 @@ public class Server {
 
 			
 			clients.add(os);
-			new ClientHandler(is, clients).start();			
+			ClientHandler cl = new ClientHandler(is, clients, numConnected);
+			cl.start();
 			os.writeObject(shapes);
 			
 			System.out.println("Accepted a new connection from " + s.getInetAddress());
+			
 		}
 	}
 	
 	public static void setPaintObjects(Vector<PaintObject> shapes) {
 		Server.shapes = shapes;
+	}
+	public static int getNumClients(){
+		return numConnected;
 	}
 	
 }
@@ -53,16 +62,18 @@ class ClientHandler extends Thread {
 	private List<ObjectOutputStream> clients;
 	private ObjectInputStream is;
 	Vector<PaintObject> paintObjects = null;
+	private int numConnected;
 	
-	public ClientHandler(ObjectInputStream is, List<ObjectOutputStream> clients) {
+	public ClientHandler(ObjectInputStream is, List<ObjectOutputStream> clients, int numClients) {
 		this.clients = clients;
 		this.is = is;
+		this.numConnected = numClients;
 	}
 	
 	@Override
 	public void run() {
 
-		while(true) {			
+		while(Server.getNumClients() <= numConnected) {			
 			try {
 				paintObjects = (Vector<PaintObject>) is.readObject();
 			} catch (ClassNotFoundException e) {

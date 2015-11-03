@@ -12,44 +12,58 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
+import javax.imageio.ImageIO;
+
 @SuppressWarnings("serial")
-public class MyImage extends PaintObject implements Serializable  {
+public class MyImage extends PaintObject implements Serializable {
 
 	private double width;
 	private double height;
-	private Image image;
+	private String fileName;
 
 	/*-----------------
 	 * Constructor
 	 *----------------*/
-	public MyImage(Point2D.Double locationStart, Point2D.Double locationEnd, Image image) {
+	public MyImage(Point2D.Double locationStart, Point2D.Double locationEnd, String image) {
 		super(locationStart, locationEnd, Color.BLACK);
 		width = locationEnd.x - locationStart.x;
 		height = locationEnd.y - locationStart.y;
-		this.image = image;
+		this.fileName = image;
 	}
 
 	/**
 	 * Method: draw
+	 * 
 	 * @param g2
-	 * 		Graphics2D
+	 *            Graphics2D
 	 * @return none
 	 * 
 	 */
 	public void draw(Graphics2D g2) {
+		File file = new File(fileName);
+		Image image = null;
 
-		g2.drawImage(image, (int) Math.round(locationStart.x), (int) Math.round(locationStart.y), (int) Math.round(width),
-				(int) Math.round(height), null);
+		try {
+			image = ImageIO.read(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (image != null) {
+			g2.drawImage(image, (int) Math.round(locationStart.x), (int) Math.round(locationStart.y),
+					(int) Math.round(width), (int) Math.round(height), null);
+		}
 
 	}
 
 	/**
-	 * Method: drawGhost
-	 * 			draws the unfilled shape
+	 * Method: drawGhost draws the unfilled shape
+	 * 
 	 * @param g2
-	 * 		Graphics2D
+	 *            Graphics2D
 	 * @return none
 	 * 
 	 */
@@ -58,7 +72,7 @@ public class MyImage extends PaintObject implements Serializable  {
 		rectangle.setFrameFromDiagonal(locationStart, locationEnd);
 		g2.setPaint(color);
 		g2.draw(rectangle);
-		
+
 	}
 
 }
