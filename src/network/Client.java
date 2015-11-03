@@ -71,7 +71,8 @@ public class Client {
 		try {
 			oos.writeObject(shapes);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Server closed connection");
+			System.exit(1);
 		}
 	}
 
