@@ -41,22 +41,29 @@ public class PaintPanel extends JPanel {
 	private PaintObject currentDrawingObject;
 	private Point2D.Double currentDrawingStartPoint;
 	private PaintGUI parent;
-	private String image;
+	private String fileName;
 	private Client client;
+	private Image image;
 
 	/*-----------------
 	 * Constructor
 	 *----------------*/
 	public PaintPanel(PaintGUI parent) {
-		image = "./images/doge.jpeg";
-
+		fileName = "./images/doge.jpeg";
+		
+		try {
+			image = ImageIO.read(new File(fileName));
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}
+		
 		this.parent = parent;
 		shapes = new Vector<PaintObject>();
 		this.addMouseMotionListener(new MouseActionListener());
 		this.addMouseListener(new MouseActionListener());
 		this.currentDrawingObject = null;
 		client = new Client(this);
-
+		
 	}
 
 	public Client getClient() {
@@ -122,7 +129,7 @@ public class PaintPanel extends JPanel {
 		else if (type == MyLine.class)
 			retval = new MyLine(start, end, color);
 		else if (type == MyImage.class)
-			retval = new MyImage(start, end, image);
+			retval = new MyImage(start, end, fileName, image);
 		else if (type == MyRectangle.class)
 			retval = new MyRectangle(start, end, color);
 

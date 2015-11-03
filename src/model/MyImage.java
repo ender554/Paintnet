@@ -24,17 +24,29 @@ public class MyImage extends PaintObject implements Serializable {
 	private double width;
 	private double height;
 	private String fileName;
+	private transient Image image;
 
 	/*-----------------
 	 * Constructor
 	 *----------------*/
-	public MyImage(Point2D.Double locationStart, Point2D.Double locationEnd, String image) {
+	public MyImage(Point2D.Double locationStart, Point2D.Double locationEnd, String fileName, Image image) {
 		super(locationStart, locationEnd, Color.BLACK);
 		width = locationEnd.x - locationStart.x;
 		height = locationEnd.y - locationStart.y;
-		this.fileName = image;
+		this.fileName = fileName;
+		
+		this.image = image;
+		
+		
 	}
-
+	
+	private void bufferImage() {
+		try {
+			image = ImageIO.read(new File(fileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Method: draw
 	 * 
@@ -44,14 +56,11 @@ public class MyImage extends PaintObject implements Serializable {
 	 * 
 	 */
 	public void draw(Graphics2D g2) {
-		File file = new File(fileName);
-		Image image = null;
-
-		try {
-			image = ImageIO.read(file);
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		if(image == null) {
+			bufferImage();
 		}
+		
 		if (image != null) {
 			g2.drawImage(image, (int) Math.round(locationStart.x), (int) Math.round(locationStart.y),
 					(int) Math.round(width), (int) Math.round(height), null);
