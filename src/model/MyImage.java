@@ -18,6 +18,8 @@ import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
+import network.Client;
+
 @SuppressWarnings("serial")
 public class MyImage extends PaintObject implements Serializable {
 
@@ -50,11 +52,12 @@ public class MyImage extends PaintObject implements Serializable {
 	 * 
 	 */
 	private void bufferImage() {
-		try {
+		image = Client.getBufferedImage();
+		/*try {
 			image = ImageIO.read(new File(fileName));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	/**
 	 * Method: draw

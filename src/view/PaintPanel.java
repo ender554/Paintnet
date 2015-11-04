@@ -42,7 +42,7 @@ public class PaintPanel extends JPanel {
 	private PaintGUI parent;
 	private String fileName;
 	private Client client;
-	private Image image;
+	private Image image;	
 
 	/*-----------------
 	 * Constructor
@@ -64,7 +64,10 @@ public class PaintPanel extends JPanel {
 		client = new Client(this);
 		
 	}
-
+	
+	public Image getImage() {
+		return image;
+	}
 	public Client getClient() {
 		return client;
 	}

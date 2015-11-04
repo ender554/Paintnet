@@ -6,12 +6,15 @@
 
 package network;
 
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 
 import model.PaintObject;
@@ -27,10 +30,18 @@ public class Client {
 	PaintPanel pp;
 	private ServerListener sl;
 	private volatile boolean running;
+	private static Image bufferedImage;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				try {
+					bufferedImage = ImageIO.read(new File("./images/doge.jpeg"));
+				}
+				catch( IOException e) {
+					e.printStackTrace();
+				}
+				
 				try {
 					new PaintGUI().setVisible(true);
 				} catch (Exception e) {
@@ -38,6 +49,10 @@ public class Client {
 				}
 			}
 		});
+	}
+	
+	public static Image getBufferedImage() {
+		return bufferedImage;
 	}
 
 	//constructor
